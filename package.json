@@ -4,9 +4,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "ts-node-dev --env-file=.env src/index.ts",
-    "start": "node build/index.js",
-    "tsc": "tsc",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node build/index.js"
   },
   "keywords": [],
   "author": "",

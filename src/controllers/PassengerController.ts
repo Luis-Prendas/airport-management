@@ -1,18 +1,26 @@
-// src/controllers/PassengerController.ts
-import { Passenger } from '../models/Passenger';
+import PassengerModel, { type Passenger } from '../models/Passenger'
+import { type Request, type Response } from 'express'
+
+// const aaa: Passenger = {
+//   name: 'testName',
+//   passportNumber: 'testPassport',
+//   nationality: 'testNarionality'
+// }
 
 export class PassengerController {
-    private passengers: Passenger[] = [];
-
-    addPassenger(passenger: Passenger): void {
-        this.passengers.push(passenger);
+  async addPassenger (req: Request, res: Response): Promise<void> {
+    try {
+      const newPassenger = req.body as Passenger
+      const passenger = await PassengerModel.findOne({ name: newPassenger.name })
+      if (passenger === null) {
+        await PassengerModel.create(newPassenger)
+        res.status(201).json({ message: 'Passenger created successfully' })
+        return
+      }
+      res.status(409).json({ message: 'El registro ya existe' })
+    } catch (error) {
+      console.error(error)
+      res.status(500).json({ error: 'Error del servidor' })
     }
-
-    getPassengers(): Passenger[] {
-        return this.passengers;
-    }
-
-    getPassengerByPassport(passportNumber: string): Passenger | undefined {
-        return this.passengers.find((p) => p.passportNumber === passportNumber);
-    }
+  }
 }
