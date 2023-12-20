@@ -144,3 +144,83 @@ Si encuentras algún problema durante la instalación, asegúrate de revisar los
   {
     "message": "Flight added to airline successfully"
   }
+
+### Vuelos
+
+#### 1. Crear un nuevo vuelo
+
+- **Endpoint:** `POST /api/flights`
+
+- **Body:**
+  ```json
+  {
+    "id": "IDVuelo",
+    "origin": "Ciudad de Origen",
+    "destination": "Ciudad de Destino",
+    "price": 100.0,
+    "maxPassengers": 150,
+    "currentPassengers": []
+  }
+
+- **Respuesta Exitosa:**
+  ```json
+  {
+    "message": "Flight created successfully"
+  }
+
+#### 2. Obtener todos los vuelos
+
+- **Endpoint:** `GET /api/flights`
+
+- **Respuesta Exitosa:**
+  ```json
+  [
+    {
+      "id": "IDVuelo",
+      "origin": "Ciudad de Origen",
+      "destination": "Ciudad de Destino",
+      "price": 100.0,
+      "maxPassengers": 150,
+      "currentPassengers": []
+    },
+    // Otros vuelos...
+  ]
+
+#### 3. Obtener detalles de un vuelo
+
+- **Endpoint:** `GET /api/flights/:id`
+
+- **Parámetros:**
+    - **`:id` ID del vuelo**
+
+- **Respuesta Exitosa:**
+  ```json
+  {
+    "id": "IDVuelo",
+    "origin": "Ciudad de Origen",
+    "destination": "Ciudad de Destino",
+    "price": 100.0,
+    "maxPassengers": 150,
+    "currentPassengers": []
+  }
+
+#### 4. Reservar un asiento en un vuelo
+
+- **Endpoint:** `POST /api/flights/:id/book`
+
+- **Parámetros:**
+    - **`:id` ID del vuelo**
+
+- **Body:**
+  ```json
+  {
+    "name": "Nombre del Pasajero",
+    "passportNumber": "Número de Pasaporte",
+    "nationality": "Nacionalidad"
+  }
+
+- **Respuesta Exitosa:**
+  ```json
+  {
+    "message": "Seat booked successfully"
+  }
