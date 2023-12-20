@@ -34,6 +34,7 @@ Si encuentras algún problema durante la instalación, asegúrate de revisar los
 #### 1. Crear un nuevo aeropuerto
 
 - **Endpoint:** `POST /api/airports`
+
 - **Body:**
   ```json
   {
@@ -43,6 +44,7 @@ Si encuentras algún problema durante la instalación, asegúrate de revisar los
     "isPrivate": true,
     "sponsors": ["Empresa1", "Empresa2"]
   }
+
 - **Respuesta Exitosa:**
   ```json
     {
@@ -52,6 +54,7 @@ Si encuentras algún problema durante la instalación, asegúrate de revisar los
 #### 2. Obtener todos los aeropuertos
 
 - **Endpoint:** `GET /api/airports`
+
 - **Respuesta Exitosa:**
   ```json
     [
@@ -68,8 +71,10 @@ Si encuentras algún problema durante la instalación, asegúrate de revisar los
 #### 3. Obtener aerolíneas que operan en un aeropuerto
 
 - **Endpoint:** `GET /api/airports/:name/airlines`
+
 - **Parámetros:**
     - **`:name` Nombre del aeropuerto**
+
 - **Respuesta Exitosa:**
   ```json
     [
@@ -80,3 +85,62 @@ Si encuentras algún problema durante la instalación, asegúrate de revisar los
         // Otras aerolíneas...
     ]
 
+### Aeropuertos
+
+#### 1. Crear una nueva aerolínea
+
+- **Endpoint:** `POST /api/airlines`
+
+- **Body:**
+  ```json
+  {
+    "name": "Nombre de la Aerolínea"
+  }
+
+- **Respuesta Exitosa:**
+  ```json
+  {
+    "message": "Airline created successfully"
+  }
+
+#### 2. Obtener todas las aerolíneas
+
+- **Endpoint:** `GET /api/airlines`
+
+- **Respuesta Exitosa:**
+  ```json
+  [
+    {
+      "name": "Nombre de la Aerolínea",
+      "flights": ["IDVuelo1", "IDVuelo2"]
+    },
+    // Otras aerolíneas...
+  ]
+
+#### 3. Obtener detalles de una aerolínea
+
+- **Endpoint:** `GET /api/airlines/:name`
+
+- **Parámetros:**
+    - **`:name` Nombre de la aerolínea**
+
+- **Respuesta Exitosa:**
+  ```json
+  {
+    "name": "Nombre de la Aerolínea",
+    "flights": ["IDVuelo1", "IDVuelo2"]
+  }
+
+#### 4. Asociar un vuelo a una aerolínea
+
+- **Endpoint:** `POST /api/airlines/:name/flights/:flightId`
+
+- **Parámetros:**
+    - **`:name` Nombre de la aerolínea**
+    - **`:flightId` ID del vuelo**
+
+- **Respuesta Exitosa:**
+  ```json
+  {
+    "message": "Flight added to airline successfully"
+  }
