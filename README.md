@@ -69,7 +69,7 @@ Si encuentras algún problema durante la instalación, asegúrate de revisar los
 
 - **Endpoint:** `GET /api/airports/:name/airlines`
 - **Parámetros:**
-- - **`:name` Nombre del aeropuerto**
+    - **`:name` Nombre del aeropuerto**
 - **Respuesta Exitosa:**
   ```json
     [
