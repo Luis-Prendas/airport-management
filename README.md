@@ -224,3 +224,86 @@ Si encuentras algún problema durante la instalación, asegúrate de revisar los
   {
     "message": "Seat booked successfully"
   }
+
+### Pasajeros
+
+#### 1. Crear un nuevo pasajero
+
+- **Endpoint:** `POST /api/passengers`
+
+- **Body:**
+  ```json
+  {
+    "name": "Nombre del Pasajero",
+    "passportNumber": "Número de Pasaporte",
+    "nationality": "Nacionalidad"
+  }
+
+- **Respuesta Exitosa:**
+  ```json
+  {
+    "message": "Passenger created successfully"
+  }
+
+#### 2. Obtener todos los pasajeros
+
+- **Endpoint:** `GET /api/passengers`
+
+- **Respuesta Exitosa:**
+  ```json
+  [
+    {
+      "name": "Nombre del Pasajero",
+      "passportNumber": "Número de Pasaporte",
+      "nationality": "Nacionalidad"
+    },
+    // Otros pasajeros...
+  ]
+
+#### 3. Obtener detalles de un pasajero
+
+- **Endpoint:** `GET /api/passengers/:passportNumber`
+
+- **Parámetros:**
+    - **`:passportNumber` Número de pasaporte del pasajero**
+
+- **Respuesta Exitosa:**
+  ```json
+  {
+    "name": "Nombre del Pasajero",
+    "passportNumber": "Número de Pasaporte",
+    "nationality": "Nacionalidad"
+  }
+
+#### 4. Actualizar información de un pasajero
+
+- **Endpoint:** `PUT /api/passengers/:passportNumber`
+
+- **Parámetros:**
+    - **`:passportNumber` Número de pasaporte del pasajero**
+
+- **Body:**
+  ```json
+  {
+    "name": "Nuevo Nombre",
+    "nationality": "Nueva Nacionalidad"
+  }
+
+- **Respuesta Exitosa:**
+  ```json
+  {
+    "message": "Passenger updated successfully"
+  }
+
+#### 5. Eliminar un pasajero
+
+- **Endpoint:** `DELETE /api/passengers/:passportNumber`
+
+- **Parámetros:**
+    - **`:passportNumber` Número de pasaporte del pasajero**
+
+- **Respuesta Exitosa:**
+  ```json
+  {
+    "message": "Passenger deleted successfully"
+  }
