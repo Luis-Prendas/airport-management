@@ -1,5 +1,5 @@
-import AirportModel, { Airport } from '../models/Airport';
-import { Request, Response } from 'express';
+import AirportModel, { type Airport } from '../models/Airport'
+import { type Request, type Response } from 'express'
 
 // const aaa: Airport = {
 //     name: 'testName',
@@ -8,49 +8,69 @@ import { Request, Response } from 'express';
 //     isPrivate: false,
 // }
 
-async function findAirport(airportName: string) {
-    return await AirportModel.findOne({ name: airportName }).exec();
-}
-
 export class AirportController {
-    async addAirport(req: Request, res: Response): Promise<void> {
-        try {
-            const newAirport = req.body as Airport;
-            const exist = await findAirport(newAirport.name)
-            if (!exist) {
-                await AirportModel.create(newAirport);
-                res.status(201).json({ message: 'Airport created successfully' });
-                return;
-            }
-            res.status(409).json({ message: 'El registro ya existe' });
-        } catch (error) {
-            console.error(error);
-            res.status(500).json({ error: 'Error del servidor' });
-        }
+  async addAirport (req: Request, res: Response): Promise<void> {
+    try {
+      const newAirport = req.body as Airport
+      const airport = await AirportModel.findOne({ name: newAirport.name })
+      if (airport !== null) {
+        await AirportModel.create(newAirport)
+        res.status(201).json({ message: 'Airport created successfully' })
+        return
+      }
+      res.status(409).json({ message: 'El registro ya existe' })
+    } catch (error) {
+      console.error(error)
+      res.status(500).json({ error: 'Error del servidor' })
     }
+  }
 
-    async getAirports(res: Response): Promise<void> {
-        try {
-            const airports = await AirportModel.find().select('-__v -_id');
-            res.json(airports);
-        } catch (error) {
-            console.error(error);
-            res.status(500).json({ error: 'Error del servidor' });
-        }
+  async getAirports (res: Response): Promise<void> {
+    try {
+      const airports = await AirportModel.find().select('-__v -_id')
+      res.json(airports)
+    } catch (error) {
+      console.error(error)
+      res.status(500).json({ error: 'Error del servidor' })
     }
+  }
 
-    async getAirlinesByAirport(req: Request, res: Response): Promise<void> {
-        try {
-            const airportName = req.params.airportName;
-            const airport = await AirportModel.findOne({ name: airportName });
-            if (!airport) {
-                res.status(404).json({ error: 'Aeropuerto no encontrado' });
-                return;
-            }
-            res.json(airport.airlines);
-        } catch (error) {
-            console.error(error);
-            res.status(500).json({ error: 'Error del servidor' });
-        }
+  async getAirportById (req: Request, res: Response): Promise<void> {
+    try {
+      const { airportId } = req.params
+      const airport = await AirportModel.findOne({ _id: airportId })
+      if (airport == null) {
+        res.status(404).json({ error: 'Aeropuerto no encontrado' })
+        return
+      }
+      res.json(airport.airlines)
+    } catch (error) {
+      console.error(error)
+      res.status(500).json({ error: 'Error del servidor' })
     }
+  }
+
+  async updateAirport (req: Request, res: Response): Promise<void> {
+    try {
+      const airportId = req.params.airportId
+      const updatedAirportData = req.body as Airport
+
+      const existingAirport = await AirportModel.findById(airportId)
+      if (existingAirport === null) {
+        res.status(404).json({ error: 'Aeropuerto no encontrado' })
+        return
+      }
+
+      await AirportModel.findByIdAndUpdate(
+        airportId,
+        { $set: updatedAirportData },
+        { new: true }
+      )
+
+      res.status(201).json({ message: 'Airport update successfully' })
+    } catch (error) {
+      console.error(error)
+      res.status(500).json({ error: 'Error del servidor' })
+    }
+  }
 }
