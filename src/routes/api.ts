@@ -25,8 +25,20 @@ router.put('/airports/:airportId', (req: Request, res: Response) => {
 })
 
 // Rutas para pasajetos
-router.get('/passengers', (req: Request, res: Response) => {
+router.post('/passengers', (req: Request, res: Response) => {
   passengerController.addPassenger(req, res)
+})
+
+router.get('/passengers', (_req: Request, res: Response) => {
+  passengerController.getPassengers(res)
+})
+
+router.get('/passengers/:passengerId', (req: Request, res: Response) => {
+  passengerController.getPassengerById(req, res)
+})
+
+router.put('/passengers/:passengerId', (req: Request, res: Response) => {
+  passengerController.updatePassenger(req, res)
 })
 
 export default router
