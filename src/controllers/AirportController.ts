@@ -1,4 +1,4 @@
-import AirportModel, { type Airport } from '../models/Airport'
+import AirportModel, { type Airport } from '../models/AirportModel'
 import { type Request, type Response } from 'express'
 
 // const aaa: Airport = {

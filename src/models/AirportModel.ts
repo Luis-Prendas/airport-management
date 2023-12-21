@@ -1,4 +1,4 @@
-import { type Airline } from './Airline'
+import { type Airline } from './AirlineModel'
 import { Schema } from 'mongoose'
 import mongoose from '../db'
 

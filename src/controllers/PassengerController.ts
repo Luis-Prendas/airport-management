@@ -1,4 +1,4 @@
-import PassengerModel, { type Passenger } from '../models/Passenger'
+import PassengerModel, { type Passenger } from '../models/PassengerModel'
 import { type Request, type Response } from 'express'
 
 // const aaa: Passenger = {
